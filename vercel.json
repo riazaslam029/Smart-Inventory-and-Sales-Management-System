@@ -1,11 +1,17 @@
 {
   "builds": [
     {
-      "src": "package.json",
+      "src": "Frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist/smart-inventory-and-sales-management-system"
       }
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
