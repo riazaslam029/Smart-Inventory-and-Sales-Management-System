@@ -6,9 +6,12 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppDemoModule } from './app-demo.module';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppDemoModule);
+  const useDatabase = (process.env.USE_DATABASE || '').toLowerCase() === 'true';
+  const rootModule = useDatabase ? AppModule : AppDemoModule;
+  const app = await NestFactory.create(rootModule);
 
   // Enable global validation pipe
   app.useGlobalPipes(
@@ -32,7 +35,7 @@ async function bootstrap() {
     ╔════════════════════════════════════════════════════╗
     ║  Inventory & Sales Management API                  ║
     ║  Server running on: http://localhost:${PORT}        ║
-    ║  Environment: ${process.env.NODE_ENV || 'development'} - DEMO MODE           ║
+    ║  Environment: ${process.env.NODE_ENV || 'development'} - ${useDatabase ? 'DATABASE MODE' : 'DEMO MODE'}   ║
     ╚════════════════════════════════════════════════════╝
   `);
 }

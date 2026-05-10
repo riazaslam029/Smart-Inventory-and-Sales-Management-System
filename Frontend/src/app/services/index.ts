@@ -8,6 +8,7 @@ import { Injectable, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 // ============================================================================
 // Type Definitions
@@ -126,7 +127,7 @@ export class AuthService {
   providedIn: 'root',
 })
 export class ProductService {
-  private apiUrl = 'http://localhost:3000/api/products';
+  private apiUrl = `${environment.apiUrl}/products`;
 
   // Signals for reactive state management
   products$ = signal<Product[]>([]);
@@ -278,7 +279,7 @@ export class ProductService {
   providedIn: 'root',
 })
 export class InventoryService {
-  private apiUrl = 'http://localhost:3000/api/inventory';
+  private apiUrl = `${environment.apiUrl}/inventory`;
 
   // Signals for inventory state
   inventoryItems$ = signal<Inventory[]>([]);
@@ -373,7 +374,7 @@ export class InventoryService {
   providedIn: 'root',
 })
 export class CategoryService {
-  private apiUrl = 'http://localhost:3000/api/categories';
+  private apiUrl = `${environment.apiUrl}/categories`;
 
   categories$ = signal<Category[]>([]);
   isLoading$ = signal(false);
@@ -413,7 +414,7 @@ export class CategoryService {
   providedIn: 'root',
 })
 export class SalesService {
-  private apiUrl = 'http://localhost:3000/api/sales';
+  private apiUrl = `${environment.apiUrl}/sales`;
 
   // Signals for sales state
   sales$ = signal<Sale[]>([]);
