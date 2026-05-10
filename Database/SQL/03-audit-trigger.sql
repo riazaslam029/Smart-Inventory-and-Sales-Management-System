@@ -4,7 +4,10 @@
  * Captures: Old price, new price, user who made change, timestamp
  */
 
-CREATE TRIGGER trg_AuditProductPriceChange
+USE InventorySystem;
+GO
+
+CREATE OR ALTER TRIGGER trg_AuditProductPriceChange
 ON Products
 AFTER UPDATE
 AS

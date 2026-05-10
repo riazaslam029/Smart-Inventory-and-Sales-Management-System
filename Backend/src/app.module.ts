@@ -48,7 +48,7 @@ import {
       port: parseInt(process.env.DB_PORT || '1433'),
       username: process.env.DB_USERNAME || 'sa',
       password: process.env.DB_PASSWORD || 'Password123!',
-      database: process.env.DB_NAME || 'InventorySalesDB',
+      database: process.env.DB_NAME || 'InventorySystem',
       entities: [Role, User, Category, Product, Inventory, Sale, SaleItem, AuditPriceHistory],
       synchronize: false, // Use migrations instead
       logging: process.env.NODE_ENV === 'development',
@@ -94,5 +94,5 @@ export class AppModule {}
  * DB_PORT=1433
  * DB_USERNAME=sa
  * DB_PASSWORD=Password123!
- * DB_NAME=InventorySalesDB
+ * DB_NAME=InventorySystem
  */

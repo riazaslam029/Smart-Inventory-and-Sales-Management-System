@@ -5,6 +5,18 @@
  */
 
 -- ============================================================================
+-- DATABASE INITIALIZATION
+-- ============================================================================
+IF DB_ID('InventorySystem') IS NULL
+BEGIN
+    CREATE DATABASE InventorySystem;
+END
+GO
+
+USE InventorySystem;
+GO
+
+-- ============================================================================
 -- 1. ROLES TABLE (for RBAC)
 -- ============================================================================
 CREATE TABLE Roles (
@@ -134,11 +146,26 @@ CREATE TABLE AuditPriceHistory (
     CONSTRAINT FK_AuditPriceHistory_Users FOREIGN KEY (ChangedBy) REFERENCES Users(UserId) ON DELETE RESTRICT
 );
 
+-- ============================================================================
+-- 9. AUDIT_INVENTORY_CHANGES TABLE (Auditing)
+-- ============================================================================
+CREATE TABLE AuditInventoryChanges (
+    AuditId INT PRIMARY KEY IDENTITY(1,1),
+    ProductId INT NOT NULL,
+    OldQuantity INT NOT NULL,
+    NewQuantity INT NOT NULL,
+    ChangedBy INT NOT NULL,
+    ChangeReason NVARCHAR(500),
+    ChangedAt DATETIME DEFAULT GETUTCDATE(),
+    CONSTRAINT FK_AuditInventoryChanges_Products FOREIGN KEY (ProductId) REFERENCES Products(ProductId) ON DELETE CASCADE,
+    CONSTRAINT FK_AuditInventoryChanges_Users FOREIGN KEY (ChangedBy) REFERENCES Users(UserId) ON DELETE RESTRICT
+);
+
 ALTER TABLE Users
 ADD CONSTRAINT CHK_Users_EmailFormat CHECK (Email LIKE '%@%.__%');
 
 -- ============================================================================
--- 9. INDEXES FOR PERFORMANCE
+-- 10. INDEXES FOR PERFORMANCE
 -- ============================================================================
 CREATE INDEX IDX_Users_RoleId ON Users(RoleId);
 CREATE INDEX IDX_Users_Email ON Users(Email);
@@ -154,11 +181,13 @@ CREATE INDEX IDX_SaleItems_ProductId ON SaleItems(ProductId);
 CREATE INDEX IDX_SaleItems_Sale_Product ON SaleItems(SaleId, ProductId);
 CREATE INDEX IDX_AuditPriceHistory_ProductId ON AuditPriceHistory(ProductId);
 CREATE INDEX IDX_AuditPriceHistory_ChangedAt ON AuditPriceHistory(ChangedAt);
+CREATE INDEX IDX_AuditInventoryChanges_ProductId ON AuditInventoryChanges(ProductId);
+CREATE INDEX IDX_AuditInventoryChanges_ChangedAt ON AuditInventoryChanges(ChangedAt);
 CREATE INDEX IDX_Inventory_ProductId ON Inventory(ProductId);
 CREATE INDEX IDX_Inventory_Reorder ON Inventory(ReorderLevel, Quantity);
 
 -- ============================================================================
--- 10. SAMPLE DATA FOR TESTING
+-- 11. SAMPLE DATA FOR TESTING
 -- ============================================================================
 INSERT INTO Categories (CategoryName, Description) VALUES
     ('Electronics', 'Electronic devices and gadgets'),
@@ -189,7 +218,7 @@ INSERT INTO Users (Username, Email, PasswordHash, RoleId) VALUES
 PRINT 'Database Schema Created Successfully!';
 
 -- ============================================================================
--- 11. ACADEMIC QUERIES (REPORTS)
+-- 12. ACADEMIC QUERIES (REPORTS)
 -- ============================================================================
 -- A) Top selling products
 -- SELECT TOP 5 p.ProductName, SUM(si.Quantity) AS TotalUnits

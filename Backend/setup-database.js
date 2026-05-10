@@ -27,11 +27,11 @@ async function setupDatabase() {
     console.log('✅ Connected to SQL Server');
 
     // Create database
-    console.log('🔄 Creating database InventorySalesDB...');
+    console.log('🔄 Creating database InventorySystem...');
     const result = await pool.request().query(`
-      IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'InventorySalesDB')
+      IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'InventorySystem')
       BEGIN
-        CREATE DATABASE InventorySalesDB
+        CREATE DATABASE InventorySystem
       END
     `);
     console.log('✅ Database created or already exists');
@@ -41,11 +41,11 @@ async function setupDatabase() {
 
     // Create new config with database
     const dbConfig = { ...config };
-    dbConfig.database = 'InventorySalesDB';
+    dbConfig.database = 'InventorySystem';
 
     const dbPool = new sql.ConnectionPool(dbConfig);
     await dbPool.connect();
-    console.log('✅ Connected to InventorySalesDB');
+    console.log('✅ Connected to InventorySystem');
 
     // Read and execute schema script
     console.log('🔄 Creating schema...');
@@ -94,6 +94,22 @@ async function setupDatabase() {
       }
     }
     console.log('✅ Trigger created');
+
+    // Execute objects and security script
+    console.log('🔄 Creating views, functions, roles, and synonyms...');
+    const objectsScript = fs.readFileSync('Database/SQL/04-objects-and-security.sql', 'utf8');
+    const objectsBatches = objectsScript.split('GO\n');
+
+    for (let batch of objectsBatches) {
+      if (batch.trim()) {
+        try {
+          await dbPool.request().query(batch);
+        } catch (e) {
+          console.log('Note:', e.message);
+        }
+      }
+    }
+    console.log('✅ Objects and security created');
 
     // Verify data
     console.log('🔄 Verifying data...');

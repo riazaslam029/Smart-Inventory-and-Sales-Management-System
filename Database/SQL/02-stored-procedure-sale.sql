@@ -1,6 +1,15 @@
 -- ============================================================================
 -- Table Type for passing sale items to stored procedure
 -- ============================================================================
+USE InventorySystem;
+GO
+
+IF TYPE_ID(N'SaleItemDetail') IS NOT NULL
+BEGIN
+    DROP TYPE SaleItemDetail;
+END
+GO
+
 CREATE TYPE SaleItemDetail AS TABLE (
     ProductId INT NOT NULL,
     Quantity INT NOT NULL CHECK (Quantity > 0),
@@ -14,7 +23,7 @@ GO
  * ACID Compliance: Uses transaction with rollback on failure
  */
 
-ALTER PROCEDURE sp_ProcessSale
+CREATE OR ALTER PROCEDURE sp_ProcessSale
     @UserId INT,
     @SaleNumber NVARCHAR(50),
     @SaleItems SaleItemDetail READONLY,
