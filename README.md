@@ -1,402 +1,230 @@
-# 🎉 PROJECT COMPLETE - Inventory & Sales Management System
+<div align="center">
+  <img src="https://img.icons8.com/fluency/96/warehouse.png" alt="Inventory management" width="88" />
+  <h1>Smart Inventory &amp; Sales Management System</h1>
+  <p>A full-stack platform for inventory visibility, product management, and transactional sales processing.</p>
 
-## Executive Summary
+  <p>
+    <a href="https://github.com/riazaslam029/Smart-Inventory-and-Sales-Management-System"><img src="https://img.shields.io/github/stars/riazaslam029/Smart-Inventory-and-Sales-Management-System?style=for-the-badge&logo=github&label=Stars" alt="GitHub stars" /></a>
+    <a href="https://github.com/riazaslam029/Smart-Inventory-and-Sales-Management-System/issues"><img src="https://img.shields.io/github/issues/riazaslam029/Smart-Inventory-and-Sales-Management-System?style=for-the-badge&logo=github" alt="Open issues" /></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-2ea44f?style=for-the-badge" alt="MIT license" /></a>
+  </p>
 
-A **production-ready, full-stack Inventory & Sales Management System** has been successfully implemented with:
-- ✅ Complete MS SQL database with ACID transactions
-- ✅ NestJS backend with TypeORM integration
-- ✅ Angular 20 frontend with Signals
-- ✅ Comprehensive documentation
+  <p>
+    <img src="https://img.shields.io/badge/Angular-20-DD0031?style=flat-square&logo=angular&logoColor=white" alt="Angular 20" />
+    <img src="https://img.shields.io/badge/NestJS-10-E0234E?style=flat-square&logo=nestjs&logoColor=white" alt="NestJS 10" />
+    <img src="https://img.shields.io/badge/TypeScript-5.3-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/SQL%20Server-Database-A91D22?style=flat-square&logo=microsoftsqlserver&logoColor=white" alt="Microsoft SQL Server" />
+    <img src="https://img.shields.io/badge/Status-Active-2ea44f?style=flat-square" alt="Active project" />
+  </p>
 
----
+  <p>
+    <code>inventory</code> <code>sales-management</code> <code>angular</code> <code>nestjs</code> <code>typescript</code> <code>sql-server</code> <code>typeorm</code> <code>material-design</code>
+  </p>
+</div>
 
-## 📦 What You've Received
+## 📌 Overview
 
-### 1. **Database Layer** (3 SQL Files)
+**Smart Inventory & Sales Management System** is a production-oriented full-stack application for managing products, categories, stock levels, users, and sales transactions. It combines an Angular 20 frontend, a NestJS REST API, TypeORM, and Microsoft SQL Server to provide a clear separation between the user interface, business logic, and data layer.
+
+The system uses a database stored procedure to process sales atomically: it validates available stock, creates the sale, inserts sale items, and decrements inventory in one ACID transaction. Product price changes are captured automatically through a SQL Server audit trigger.
+
+## ✨ Key Capabilities
+
+- 📊 **Inventory dashboard** with product counts, stock levels, low-stock alerts, and inventory value
+- 🛒 **Transactional sales processing** with stock validation and automatic inventory updates
+- 📦 **Product and category management** through a structured REST API
+- 👥 **User and role data model** ready for controlled business operations
+- 🔐 **Database-level integrity** with foreign keys, constraints, indexes, and normalized tables
+- 🧾 **Automatic price auditing** through a SQL Server trigger
+- ⚡ **Angular Signals and auto-refresh** for responsive inventory views
+- 🎨 **Material Design and Tailwind CSS** for a clean, responsive interface
+- 🧪 **Development tooling** for builds, tests, linting, and production builds
+
+## 🏗️ Architecture
+
+```text
+┌─────────────────────────────────────────────┐
+│              Angular 20 Frontend             │
+│ Standalone components · Signals · Material   │
+└──────────────────────┬──────────────────────┘
+                       │ HTTP / REST
+                       ▼
+┌─────────────────────────────────────────────┐
+│              NestJS 10 Backend                │
+│ Controllers · Services · TypeORM · Validation│
+└──────────────────────┬──────────────────────┘
+                       │ mssql driver
+                       ▼
+┌─────────────────────────────────────────────┐
+│             Microsoft SQL Server             │
+│ 3NF schema · ACID procedure · audit trigger  │
+└─────────────────────────────────────────────┘
 ```
-✅ 01-schema-initialization.sql       (8 tables, 3NF normalized, 500+ lines)
-   - Roles, Users, Categories, Products, Inventory, Sales, SaleItems, AuditPriceHistory
-   - All constraints, indexes, sample data
 
-✅ 02-stored-procedure-sale.sql       (ACID transaction)
-   - sp_ProcessSale: Stock validation → Insert sales → Decrement inventory
-   - Table-valued parameters, comprehensive error handling
-   - All-or-nothing transaction guarantee
+## 🧰 Technology Stack
 
-✅ 03-audit-trigger.sql               (Automatic auditing)
-   - trg_AuditProductPriceChange: Logs all price changes
-   - Captures old price, new price, user, timestamp
-```
+| Layer | Technologies |
+| --- | --- |
+| Frontend | Angular 20, TypeScript, Angular Material, Tailwind CSS, RxJS |
+| Backend | NestJS 10, TypeScript, TypeORM, class-validator |
+| Database | Microsoft SQL Server, T-SQL, stored procedures, triggers |
+| Runtime | Node.js 24.x, npm |
+| Testing and quality | Jest, Karma, ESLint, TypeScript compiler |
 
-### 2. **Backend API** (NestJS)
-```
-✅ entities.ts        (8 TypeORM entities mapping all tables)
-✅ services.ts        (4 services: Product, Inventory, Sales, Category)
-✅ controllers.ts     (5 controllers with 18+ REST endpoints)
-✅ app.module.ts      (MS SQL configuration, provider setup)
-✅ main.ts            (Bootstrap with CORS, validation)
-✅ package.json       (All dependencies)
-```
+## 🚀 Quick Start
 
-### 3. **Frontend UI** (Angular 20)
-```
-✅ services/index.ts   (4 Signal-based services with auto-refresh)
-✅ components.ts       (3 standalone components)
-✅ app.config.ts       (Routing configuration)
-✅ app.component.ts    (Root layout with sidebar)
-✅ main.ts             (Bootstrap configuration)
-✅ package.json        (Angular + Material + Tailwind)
-```
+### Prerequisites
 
-### 4. **Documentation** (4 Guides)
-```
-✅ PROJECT_DELIVERY.md              (This summary + complete checklist)
-✅ QUICKSTART.md                    (5-minute setup guide)
-✅ IMPLEMENTATION_GUIDE.md          (80+ page comprehensive guide)
-   - Architecture, setup, testing, performance, security
-✅ STORED_PROCEDURE_GUIDE.md        (Procedure documentation)
-   - Parameters, examples, error codes, integration
-✅ ER_Diagram_Description.md        (Textual ER diagram)
-   - Entities, relationships, normalization, constraints
-```
+- Node.js 24.x and npm
+- Microsoft SQL Server with `sqlcmd` available, or SQL Server Management Studio
+- Git
 
----
+### 1. Clone the repository
 
-## 🎯 Key Features Implemented
-
-### Database Tier
-- **Normalized 3NF Schema**: Eliminates data redundancy
-- **ACID Transactions**: `sp_ProcessSale` with automatic rollback
-- **Audit Trail**: Automatic price history tracking via trigger
-- **Referential Integrity**: Foreign keys with cascading deletes
-- **Data Validation**: CHECK constraints at database level
-
-### Backend Tier (API)
-- **18+ REST Endpoints**: Full CRUD operations
-- **Stored Procedure Integration**: Executes `sp_ProcessSale` for complex transactions
-- **Error Handling**: Comprehensive validation and error messages
-- **TypeORM Mapping**: All 8 database tables as entities
-- **CORS Enabled**: Ready for frontend communication
-
-### Frontend Tier (UI)
-- **Angular 20 Signals**: Fine-grained reactivity without Observable overhead
-- **Real-time Dashboard**: Auto-refresh inventory every 30 seconds
-- **Sales Processor**: Dynamic form for creating sales transactions
-- **Material Design**: Professional UI with Tailwind CSS
-- **Type Safety**: Full TypeScript with interfaces
-
----
-
-## 🚀 Getting Started (5 Minutes)
-
-### Step 1: Database Setup
 ```bash
-# Create database in SQL Server
-CREATE DATABASE InventorySalesDB;
-
-# Run scripts in this order:
-sqlcmd -S localhost -U sa -P "YourPassword" -d InventorySalesDB \
-  -i Database/SQL/01-schema-initialization.sql
-sqlcmd -S localhost -U sa -P "YourPassword" -d InventorySalesDB \
-  -i Database/SQL/02-stored-procedure-sale.sql
-sqlcmd -S localhost -U sa -P "YourPassword" -d InventorySalesDB \
-  -i Database/SQL/03-audit-trigger.sql
+git clone https://github.com/riazaslam029/Smart-Inventory-and-Sales-Management-System.git
+cd Smart-Inventory-and-Sales-Management-System
 ```
 
-### Step 2: Backend Setup
+### 2. Create and initialize the database
+
+Create a database named `InventorySalesDB`, then run the SQL scripts in order:
+
 ```bash
-cd Backend
-echo "NODE_ENV=development
+sqlcmd -S localhost -U sa -P "YourPassword" -d InventorySalesDB -i Database/SQL/01-schema-initialization.sql
+sqlcmd -S localhost -U sa -P "YourPassword" -d InventorySalesDB -i Database/SQL/02-stored-procedure-sale.sql
+sqlcmd -S localhost -U sa -P "YourPassword" -d InventorySalesDB -i Database/SQL/03-audit-trigger.sql
+```
+
+For the complete security and role setup, review the additional scripts in `Database/SQL/` and the database documentation in `Documentation/`.
+
+### 3. Configure and run the backend
+
+Create `Backend/.env` with your SQL Server connection details:
+
+```env
+NODE_ENV=development
 PORT=3000
 DB_HOST=localhost
 DB_PORT=1433
 DB_USERNAME=sa
 DB_PASSWORD=YourPassword
-DB_NAME=InventorySalesDB" > .env
-
-npm install
-npm run start:dev
-# Backend running at http://localhost:3000
+DB_NAME=InventorySalesDB
 ```
 
-### Step 3: Frontend Setup
+Then install dependencies and start the API:
+
+```bash
+cd Backend
+npm install
+npm run start:dev
+```
+
+The backend runs at `http://localhost:3000`.
+
+### 4. Run the frontend
+
+In a second terminal:
+
 ```bash
 cd Frontend
 npm install
 npm start
-# Frontend running at http://localhost:4200
 ```
 
-### Step 4: Test It
-1. Navigate to `http://localhost:4200/dashboard`
-2. See real-time inventory with 5 sample products
-3. Click "New Sale" to create a transaction
-4. Verify inventory decrements automatically via stored procedure
+Open `http://localhost:4200` in your browser.
 
----
+## 🔌 API Endpoints
 
-## 📊 Architecture Overview
+The API is organized around these resources:
 
-```
-┌─────────────────────────────────────────────┐
-│          ANGULAR 20 FRONTEND                │
-│      (Standalone Components + Signals)      │
-│  Dashboard │ Sales Processor │ Recent Sales │
-└──────────────────┬──────────────────────────┘
-                   │ HTTP REST API
-                   │ 18+ Endpoints
-                   ▼
-┌─────────────────────────────────────────────┐
-│         NESTJS BACKEND (Node.js)            │
-│   Controllers → Services → TypeORM Entities │
-│          • Products                         │
-│          • Inventory                        │
-│          • Sales (Stored Procedure)         │
-│          • Categories                       │
-└──────────────────┬──────────────────────────┘
-                   │ Native mssql Driver
-                   ▼
-┌─────────────────────────────────────────────┐
-│       MS SQL SERVER DATABASE                │
-│  • 8 Tables (3NF Normalized)                │
-│  • Stored Procedures (ACID Transactions)    │
-│  • Triggers (Automatic Auditing)            │
-│  • Constraints (Referential Integrity)      │
-└─────────────────────────────────────────────┘
-```
+| Resource | Example endpoint | Purpose |
+| --- | --- | --- |
+| Health | `GET /api/health` | Check API availability |
+| Products | `GET /api/products` | List and manage products |
+| Categories | `GET /api/categories` | List and manage categories |
+| Inventory | `GET /api/inventory` | View stock and low-stock data |
+| Sales | `GET /api/sales` | Review recorded sales |
+| Sales | `POST /api/sales` | Process a sale transaction |
 
----
+See `Backend/src/controllers.ts` and `Documentation/IMPLEMENTATION_GUIDE.md` for the complete endpoint and integration details.
 
-## 📈 What Makes This Production-Ready
+## 🗂️ Project Structure
 
-✅ **Database**
-- Normalized 3NF design (eliminates redundancy)
-- Foreign key constraints with cascading deletes
-- CHECK constraints for data validation
-- Indexes on frequently searched columns
-- Sample data for testing
-
-✅ **Backend**
-- RESTful API design patterns
-- Service layer for business logic
-- Comprehensive error handling
-- Input validation (class-validator)
-- CORS enabled
-- Environment variable configuration
-
-✅ **Frontend**
-- Angular 20 with standalone components
-- Signal-based reactivity (next-gen Angular)
-- Real-time auto-refresh
-- Material Design UI
-- Tailwind CSS styling
-- Type-safe TypeScript
-
-✅ **Documentation**
-- Complete setup guides
-- Architecture documentation
-- API endpoint reference
-- Database schema explanation
-- Stored procedure detailed guide
-- Troubleshooting guide
-
----
-
-## 🧪 Testing the System
-
-### Test 1: View Inventory Dashboard
-```
-1. Open http://localhost:4200/dashboard
-2. Should see 5 products with stock levels
-3. Dashboard auto-refreshes every 30 seconds
-✓ Real-time reactivity working
-```
-
-### Test 2: Create a Sale
-```
-1. Go to "New Sale"
-2. Enter: Sale# = SALE-2024-001, Product=1, Qty=1, Price=1299.99
-3. Click "Process Sale"
-✓ Stored procedure executes, inventory decrements
-```
-
-### Test 3: Check Audit Trail
-```sql
-SELECT * FROM AuditPriceHistory;
--- Should show any price changes made
-```
-
----
-
-## 📂 Project Structure
-
-```
-DB project/
-├── Database/SQL/
-│   ├── 01-schema-initialization.sql        ← Start here
-│   ├── 02-stored-procedure-sale.sql        ← Transactions
-│   └── 03-audit-trigger.sql                ← Auditing
-│
+```text
 ├── Backend/
-│   ├── package.json                        ← npm install
 │   ├── src/
-│   │   ├── main.ts
-│   │   ├── app.module.ts
-│   │   ├── entities.ts
-│   │   ├── services.ts
-│   │   └── controllers.ts
-│   └── .env                                ← DB credentials
-│
-├── Frontend/
-│   ├── package.json                        ← npm install
-│   └── src/
-│       ├── main.ts
-│       └── app/
-│           ├── app.config.ts
-│           ├── app.component.ts
-│           ├── components.ts
-│           └── services/index.ts
-│
+│   │   ├── controllers.ts       # REST controllers
+│   │   ├── services.ts           # Business logic
+│   │   ├── entities.ts           # TypeORM entities
+│   │   ├── app.module.ts         # NestJS module configuration
+│   │   └── main.ts               # API bootstrap
+│   └── package.json
+├── Database/
+│   └── SQL/
+│       ├── 01-schema-initialization.sql
+│       ├── 02-stored-procedure-sale.sql
+│       ├── 03-audit-trigger.sql
+│       ├── 04-objects-and-security.sql
+│       └── 05-users-and-role-mapping.sql
 ├── Documentation/
-│   ├── ER_Diagram_Description.md           ← Database design
-│   ├── IMPLEMENTATION_GUIDE.md             ← 80+ pages
-│   ├── STORED_PROCEDURE_GUIDE.md           ← Proc details
-│   └── PROJECT_DELIVERY.md                 ← Checklist
-│
-├── QUICKSTART.md                           ← 5-min setup
-└── PROJECT_DELIVERY.md                     ← This file
+│   ├── IMPLEMENTATION_GUIDE.md
+│   ├── STORED_PROCEDURE_GUIDE.md
+│   └── ER_Diagram_Description.md
+├── Frontend/
+│   ├── src/app/                  # Angular application
+│   └── package.json
+├── QUICKSTART.md
+└── README.md
 ```
 
----
+## 🧪 Development Commands
 
-## 🎓 Learning Resources
+### Backend
 
-### In This Project
-- **3NF Database Normalization** - Schema eliminates redundancy
-- **ACID Transactions** - Stored procedure with rollback
-- **Trigger-based Auditing** - Automatic audit trails
-- **RESTful API Design** - Clean endpoint patterns
-- **TypeORM Mapping** - Database ↔ Application layer
-- **Angular Signals** - Next-gen reactive framework
-- **Stored Procedure Integration** - Complex business logic in DB
+```bash
+cd Backend
+npm run build       # Compile the API
+npm test            # Run Jest tests
+npm run lint        # Lint TypeScript files
+npm run start:prod  # Run compiled production build
+```
 
-### Documentation Files
-- `QUICKSTART.md` - 5-minute setup
-- `IMPLEMENTATION_GUIDE.md` - Complete 80+ page guide
-- `STORED_PROCEDURE_GUIDE.md` - Procedure examples
-- `ER_Diagram_Description.md` - Database design
+### Frontend
 
----
+```bash
+cd Frontend
+npm run build:prod  # Create a production build
+npm test            # Run Angular tests
+npm run lint        # Lint Angular files
+```
 
-## ✨ Highlights
+## 📚 Documentation
 
-🎯 **All Requested Deliverables:**
-- ✅ Full SQL DDL script (production-ready)
-- ✅ ER diagram with textual description
-- ✅ NestJS controller & service code
-- ✅ Angular Signal-based service
+- [`QUICKSTART.md`](QUICKSTART.md) — fastest local setup path
+- [`Documentation/IMPLEMENTATION_GUIDE.md`](Documentation/IMPLEMENTATION_GUIDE.md) — architecture, setup, testing, and operations
+- [`Documentation/STORED_PROCEDURE_GUIDE.md`](Documentation/STORED_PROCEDURE_GUIDE.md) — sale transaction procedure reference
+- [`Documentation/ER_Diagram_Description.md`](Documentation/ER_Diagram_Description.md) — entities, relationships, and normalization
+- [`PROJECT_DELIVERY.md`](PROJECT_DELIVERY.md) — delivery checklist and implementation summary
 
-🚀 **Extra Bonus:**
-- ✅ 3 complete standalone components
-- ✅ 18+ REST endpoints
-- ✅ 4 comprehensive documentation guides
-- ✅ Real-time dashboard with auto-refresh
-- ✅ Professional UI with Material Design
-- ✅ Complete setup & testing guide
+## 🤝 Contributing
 
-📚 **Documentation:**
-- 4 markdown files (~300+ pages total)
-- Code comments throughout
-- Example usage for every component
-- Troubleshooting guide
+Contributions are welcome. Open an issue to report a problem or suggest an improvement, then submit a focused pull request with a clear description and validation steps.
 
----
+## 🔒 Security Notes
 
-## 🔒 Production Recommendations
+- Never commit `Backend/.env` or database credentials.
+- Use strong, rotated credentials for SQL Server.
+- Keep CORS, authentication, authorization, and HTTPS configuration aligned with the deployment environment.
+- Review the security-focused SQL scripts before using the system outside a local development environment.
 
-When deploying to production, consider adding:
+## 📄 License
 
-1. **Authentication/Authorization**
-   - JWT tokens
-   - API key management
-   - Role-based endpoint access
+This project is released under the [MIT License](LICENSE). You are free to use, modify, and distribute the software, subject to the license terms.
 
-2. **API Security**
-   - Rate limiting
-   - Request validation
-   - HTTPS/TLS encryption
-
-3. **Database Security**
-   - Row-level security (RLS)
-   - Column-level encryption
-   - Connection encryption
-
-4. **Monitoring**
-   - Application logging
-   - Database query monitoring
-   - Performance metrics
-
-5. **Deployment**
-   - Docker containerization
-   - CI/CD pipeline
-   - Database migration scripts
-   - Health check endpoints
-
----
-
-## 📞 Support Resources
-
-**If you encounter issues:**
-
-1. **Database Connection**
-   - Check `.env` file credentials
-   - Verify SQL Server is running
-   - Run: `SELECT @@VERSION` in SSMS
-
-2. **Backend Not Starting**
-   - Check dependencies: `npm install`
-   - Check port 3000 availability
-   - Review console error messages
-
-3. **Frontend Not Connecting**
-   - Check backend is running
-   - Browser console: F12 → Console
-   - Network tab: F12 → Network
-
-4. **Data Issues**
-   - Verify sample data inserted
-   - Check database creation script
-   - Review stored procedure execution
-
----
-
-## 🎉 Summary
-
-You now have a **complete, production-ready Inventory & Sales Management System** with:
-
-✅ Enterprise-grade database (3NF, ACID, auditing)  
-✅ Modern NestJS backend with TypeORM  
-✅ Angular 20 frontend with Signals  
-✅ Real-time dashboard with auto-refresh  
-✅ Comprehensive documentation  
-✅ Sample data for immediate testing  
-
-**Start in 5 minutes** - Follow QUICKSTART.md!
-
----
-
-## 📝 Files to Review First
-
-1. **QUICKSTART.md** - How to set everything up (5 minutes)
-2. **Database/SQL/01-schema-initialization.sql** - See the schema
-3. **Backend/src/controllers.ts** - Understand the API
-4. **Frontend/src/app/services/index.ts** - See Signal usage
-5. **IMPLEMENTATION_GUIDE.md** - Deep dive into system
-
----
-
-**Status**: ✅ **PROJECT COMPLETE**  
-**Version**: 1.0.0  
-**Date**: April 30, 2026  
-
-🚀 **Ready to deploy! Happy coding!**
+<div align="center">
+  <br />
+  <strong>Built with Angular, NestJS, TypeScript, and Microsoft SQL Server.</strong>
+  <br />
+  <a href="https://github.com/riazaslam029/Smart-Inventory-and-Sales-Management-System">⭐ Star the repository if you find it useful</a>
+</div>
